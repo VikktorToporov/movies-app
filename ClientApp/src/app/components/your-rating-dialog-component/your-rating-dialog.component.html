@@ -1,0 +1,10 @@
+<div>
+    <h2>Change <strong>Your Rating</strong> for:</h2>
+
+    <h2>{{data.movie}}</h2>
+
+    <label>Rating</label>
+    <input type="number" min="0" max="10" [(ngModel)]="data.rating">
+
+    <a mat-raised-button color="primary" [mat-dialog-close]="data.rating">Rate</a>
+</div>

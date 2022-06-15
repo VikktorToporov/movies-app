@@ -1,0 +1,17 @@
+<div class="movies" [ngStyle]="{'margin-top': (isPrimary) ? '100px': '0'}">
+  <h2 *ngIf="!listId">Movies</h2>
+
+  <ul class="movie-list">
+    <li><filters (filters)="filterMovies($event)"></filters></li>
+
+    <li *ngFor="let movie of movies">
+      <movie [movie]="movie" [movie-lists]="lists" (update-movie-lists)="getAllListedMovies()" (update-movies)="search()"></movie>
+    </li>
+
+    <li *ngIf="movies?.length == 0">
+      <h3>No movies found.</h3>
+    </li>
+  </ul>
+</div>
+
+<a class="add-new-btn" [routerLink]="['/New/Movie']"><i class="fas fa-plus"></i></a>

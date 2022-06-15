@@ -1,0 +1,41 @@
+.movies {
+    text-align: center;
+}
+.movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: left;
+    margin-top: 50px;
+
+    li {
+        width: 80%;
+        max-width: 1150px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        &:first-child {
+            height: auto;
+        }
+
+        &:nth-child(2) {
+            height: 80vh;
+            margin-bottom: 10vh;
+        }
+
+        filters,
+        movie {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .movie-list li {
+        height: auto !important;
+        margin-bottom: 10vh;
+    }
+}

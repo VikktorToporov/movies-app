@@ -1,0 +1,140 @@
+<div class="add-new">
+    <h4 *ngIf="showError" style="color: #e64d4d;">Please enter correct information.</h4>
+
+    <ng-container *ngIf="type == 'Movie'">
+        <h2>Add a new movie</h2>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Title</mat-label>
+                <input matInput placeholder="Title" value="" [(ngModel)]="newMovie.name">
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Year</mat-label>
+                <input matInput placeholder="Year" value="" type="number" min="1900" max="2030" [(ngModel)]="newMovie.year">
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>MPA Rating</mat-label>
+                <input matInput placeholder="MPA Rating" value="" [(ngModel)]="newMovie.parentRating">
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Runtime</mat-label>
+                <input matInput placeholder="Runtime" value="" type="number" min="1" max="600" [(ngModel)]="newMovie.runtime">
+            </mat-form-field>
+        </div>
+            
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>IMDB Rating</mat-label>
+                <input matInput placeholder="IMDB Rating" value="" type="number" min="1" max="10" [(ngModel)]="newMovie.imdbRating">
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>IMDB Link</mat-label>
+                <input matInput placeholder="IMDB Link" value="" [(ngModel)]="newMovie.link">
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea matInput placeholder="Description" [(ngModel)]="newMovie.description"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Director</mat-label>
+                <input matInput placeholder="Director" value="" [(ngModel)]="newMovie.director">
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Actors</mat-label>
+                <mat-chip-list #chipListActors aria-label="Actor selection">
+                    <mat-chip *ngFor="let actor of addedActors" (removed)="removeActor(actor)">
+                      {{actor}}
+                      <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip>
+                    <input placeholder="New actor..."
+                           [formControl]="actorCtrl"
+                           [matChipInputFor]="chipListActors"
+                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                           (matChipInputTokenEnd)="addActor($event)">
+                  </mat-chip-list>
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Genres</mat-label>
+                <mat-chip-list #chipListGenre aria-label="Genre selection">
+                    <mat-chip
+                    *ngFor="let genre of addedGenres"
+                    (removed)="removeGenre(genre)">
+                    {{genre}}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                    </mat-chip>
+                    <input
+                    placeholder="New genre..."
+                    #genreInput
+                    [formControl]="genreCtrl"
+                    [matAutocomplete]="auto"
+                    [matChipInputFor]="chipListGenre"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="addGenre($event)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedGenre($event)">
+                    <mat-option *ngFor="let genre of filteredGenres | async" [value]="genre">
+                    {{genre}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Poster Link</mat-label>
+                <input matInput placeholder="Poster Link" value="" [(ngModel)]="newMovie.poster">
+            </mat-form-field>
+        </div>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Youtube ID</mat-label>
+                <input matInput placeholder="Youtube ID" value="" [(ngModel)]="newMovie.youtubeTrailer">
+            </mat-form-field>
+        </div>
+        
+        <button mat-raised-button color="primary" (click)="addMovie()">Add</button>
+    </ng-container>
+
+    <ng-container *ngIf="type == 'List'">
+        <h2>Add a new list</h2>
+
+        <div class='input-box'>
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Name" value="" [(ngModel)]="newList.name">
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="addList()">Add</button>
+    </ng-container>
+</div>

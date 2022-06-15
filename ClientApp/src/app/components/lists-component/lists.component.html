@@ -1,0 +1,28 @@
+<ul class="lists" *ngIf="lists && lists.length > 0">
+  <li>
+    <div class="list-wrapper">
+      <span>Name</span>
+      
+      <span>Movies</span>
+
+      <span>Private</span>
+
+      <span>Mine</span>
+    </div>
+  </li>
+  <li *ngFor="let list of lists">
+    <div class="list-wrapper">
+      <a [routerLink]="['/List/' + list?.id]">
+        <h2 *ngIf="!editMode">{{list?.name}}</h2>
+      </a>
+
+      <h2>{{list?.movieCount}}</h2>
+
+      <h2><mat-checkbox [disabled]="true" [checked]="list?.private" (click)="updateList(list)"></mat-checkbox></h2>
+
+      <h2><mat-checkbox [disabled]="true" [checked]="userId === list?.userId"></mat-checkbox></h2>
+    </div>
+  </li>
+</ul>
+
+<a class="add-new-btn" [routerLink]="['/New/List']"><i class="fas fa-plus"></i></a>

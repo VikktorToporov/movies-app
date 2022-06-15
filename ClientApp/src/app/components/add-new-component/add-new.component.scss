@@ -1,0 +1,50 @@
+.add-new {
+    margin: 150px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-box {
+    width: 50%;
+    margin-top: 20px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #bebdbd;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #bebdbd;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #bebdbd;
+  }
+
+@media only screen and (max-width: 600px) {
+    .input-box {
+        width: 80%;
+    }
+}
+
+::ng-deep {
+    .mat-form-field {
+        width: 100% !important;
+    }
+
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+        background-color: #343434 !important;
+    }
+    .mat-form-field-label {
+        color: #e3e3e3 !important;
+    }
+    .mat-input-element {
+        color: #e3e3e3 !important;
+    }
+
+    .mat-form-field-ripple {
+        opacity: 0 !important;;
+    }
+  }

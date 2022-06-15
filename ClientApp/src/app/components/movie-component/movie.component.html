@@ -1,0 +1,97 @@
+<div class="movie-list-wrapper">
+  <div class="movie-header">
+    <div class="movie-header-info">
+      <span *ngIf="!editMode" class="movie-header-name">{{movie?.name}}</span>
+      <input *ngIf="editMode" class="movie-header-name edit-input" [(ngModel)]="tempMovieDetails.name" matTooltip="Title">
+
+      <div class="movie-header-small">
+        <span *ngIf="!editMode">{{movie?.year}}</span>
+        <input *ngIf="editMode" class="edit-input" [(ngModel)]="tempMovieDetails.year" matTooltip="Year">
+
+        <span *ngIf="!editMode">{{movie?.parentRating}}</span>
+        <input *ngIf="editMode" class="edit-input" [(ngModel)]="tempMovieDetails.parentRating" matTooltip="MPA rating">
+
+        <span *ngIf="!editMode">{{movie?.runtime | convertRuntimePipe}}</span>
+        <input *ngIf="editMode" class="edit-input" [(ngModel)]="tempMovieDetails.runtime" matTooltip="Runtime">
+
+        <a *ngIf="!editMode" [href]="movie?.link" target="_blank">IMDB</a>
+        <input *ngIf="editMode" class="edit-input edit-input-longer" [(ngModel)]="tempMovieDetails.link" matTooltip="IMDB link">
+
+        <ng-container *ngIf="movie?.userId === userId">
+          <a *ngIf="!editMode" (click)="toggleEditMode()" matTooltip="Edit movie"><i class="fas fa-pen"></i></a>
+          <a *ngIf="editMode" (click)="toggleEditMode()" matTooltip="Save changes"><i class="fas fa-check"></i></a>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="movie-header-ratings">
+      <div *ngIf="movie.imdbRating && movie.imdbRating > 0" class="movie-header-ratings-box">
+        <label>IMDB Rating</label>
+        <span *ngIf="!editMode"><i class="fas fa-star"></i> {{movie?.imdbRating}}</span>
+        <input *ngIf="editMode" class="edit-input" [(ngModel)]="tempMovieDetails.imdbRating" type="number" min="0" max="10" matTooltip="IMDB rating">
+      </div>
+
+      <div class="movie-header-ratings-box">
+        <label>Your Rating</label>
+        <span *ngIf="movie.yourRating && movie.yourRating > 0; else rateNow" (click)="openDialog(movie)"><i class="fas fa-star"></i> {{movie?.yourRating}}</span>
+        <ng-template #rateNow>
+          <a (click)="openDialog(movie)"><i class="far fa-star"></i></a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="movie-visuals">
+    <div class="poster" [ngStyle]="!editMode ? { 'background-image': 'url(' + movie?.poster + ')'} : {'': ''}">
+      <input *ngIf="editMode" class="edit-input" [(ngModel)]="tempMovieDetails.poster" matTooltip="Poster link">
+    </div>
+
+    <youtube-player-wrapper *ngIf="movie.youtubeTrailer" [videoId]="movie.youtubeTrailer" [ngClass]="!editMode ? '' : 'hide-video'"></youtube-player-wrapper>
+    <input *ngIf="editMode" class="edit-input edit-input-absolute" [(ngModel)]="tempMovieDetails.youtubeTrailer" matTooltip="Youtube trailer id">
+  </div>
+  
+  <div class="genres">
+    <ng-container *ngFor="let genre of movie?.genres; let index = index; trackBy: trackByFn">
+      <a *ngIf="!editMode">{{genre?.name}}</a>
+      <input *ngIf="editMode" class="edit-input" [(ngModel)]="tempMovieDetails.genres[index]" matTooltip="Genre">
+    </ng-container>
+
+    <a *ngIf="editMode" (click)="addNewGenre()" matTooltip="Add genre"><i class="fas fa-plus"></i></a>
+    
+  </div>
+
+  <div class="movie-footer">
+    <div class="movie-footer-info">
+      <p *ngIf="!editMode">{{movie?.description}}</p>
+      <textarea *ngIf="editMode" class="edit-input edit-input-longer" [(ngModel)]="tempMovieDetails.description" matTooltip="Description"></textarea>
+      <hr>
+
+      <span>Director
+        <a *ngIf="!editMode" [routerLink]="['/search/' + movie?.director]">{{movie?.director}}</a>
+        <input *ngIf="editMode" class="edit-input" [(ngModel)]="tempMovieDetails.director" matTooltip="Director">
+      </span>
+
+      <hr>
+      
+      <span>Stars 
+        <ng-container *ngFor="let star of movie?.stars | stringToArrayPipe">
+          <a [routerLink]="['/Search/' + star]">{{star}}</a>
+        </ng-container>
+      </span>
+
+    </div>
+
+    <div class="add-to-list">
+      <mat-expansion-panel (opened)="openExpansionPanel()" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Lists</mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div *ngFor="let list of lists">
+            <a (click)="updateList(list?.id, movie?.id)"><mat-checkbox [checked]="list?.id | isIdInMovieCollection: movie?.xRefMoviesMedialists" class="example-margin">{{list?.name}}</mat-checkbox></a>
+          </div>
+
+        </mat-expansion-panel>
+    </div>
+  </div>
+</div>

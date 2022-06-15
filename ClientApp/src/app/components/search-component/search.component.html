@@ -1,0 +1,9 @@
+<ng-container *ngIf="searchTerm && searchTerm.length > 0">
+  <div class="filtered-content">
+    <h2>Searching for '{{searchTerm}}'</h2>
+
+    <lists *ngIf="searchTerm && searchTerm.length > 2" [search-term]="searchTerm"></lists>
+    
+    <movies *ngIf="searchTerm && searchTerm.length > 2" [is-primary]="false" [search-term]="searchTerm"></movies>
+  </div>
+</ng-container>

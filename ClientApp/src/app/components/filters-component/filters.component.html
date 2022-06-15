@@ -1,0 +1,38 @@
+<div class="filters">
+    <div class="filter">
+        <label>Sort by</label>
+        <a class="asc-desc" [matTooltip]="sortAsc ? 'Ascending order':'Descending order'" matTooltipPosition="right" (click)="sortAsc = !sortAsc; sendData();">
+            <i class="fas fa-long-arrow-alt-up" [ngClass]="sortAsc ? 'selected-arrow':''"></i><i class="fas fa-long-arrow-alt-down" [ngClass]="sortAsc ? '':'selected-arrow'"></i>
+        </a>
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-select class="select-element" [(value)]="sortFilter" (valueChange)="sendData()">
+                <mat-option [value]="enumSortColumn.ImdbRating">IMDB Rating</mat-option>
+                <mat-option [value]="enumSortColumn.YourRating">Your Rating</mat-option>
+                <mat-option [value]="enumSortColumn.Year">Release Date</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="filter">
+        <label>Genres</label>
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-select class="select-element" [(value)]="genresFilter"  [(value)]="genresFilter" (valueChange)="sendData()" multiple>
+                <mat-option *ngFor="let genre of allGenres" [value]="genre?.id">{{genre?.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="filter">
+        <label>Show</label>
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-select class="select-element" [(value)]="showFilter" [(value)]="showFilter" (valueChange)="sendData()">
+                <mat-option [value]="enumShow.all">All</mat-option>
+                <mat-option [value]="enumShow.rated">Only rated</mat-option>
+                <mat-option [value]="enumShow.unrated">Only unrated</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>

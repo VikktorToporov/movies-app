@@ -1,0 +1,33 @@
+.lists {
+    margin: 100px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: left;
+
+    li {
+        width: 80%;
+        max-width: 1150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:first-child {
+            .list-wrapper {
+                border-bottom: 0px;
+            }
+        }
+
+        h2 {
+            margin: 20px 0 5px!important;
+        }
+    }
+
+    .list-wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 5fr .5fr .5fr .5fr;
+        border-bottom: 1px solid #ffffff33;
+    }
+}
+

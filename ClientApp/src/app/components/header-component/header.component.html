@@ -1,0 +1,16 @@
+<div class="header">
+    <div class="header-wrapper">
+        <a class="logo" [routerLink]="['']"><h1>Movie DB</h1></a>
+
+        <div class="search">
+            <input #searchTermInput (keyup.enter)="search()" placeholder="Search movie names, lists, stars, directors" />
+            <a (click)="search()"><i class="fas fa-search"></i></a>
+        </div>
+        
+        <div class="header-links">
+            <a [routerLink]="['/']">Movies</a>
+            <a [routerLink]="['/Lists']">Lists</a>
+            <a (click)="logout()">Log Out</a>
+        </div>
+    </div>
+</div>

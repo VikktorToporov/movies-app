@@ -1,0 +1,9 @@
+<div class="heading">
+    <h2 *ngIf="list?.name && !editMode">{{list?.name}}</h2>
+    <input *ngIf="editMode" class="movie-header-name edit-input" [(ngModel)]="tempList.name">
+
+    <a *ngIf="!editMode" (click)="toggleEditMode()"><i class="fas fa-pen"></i></a>
+    <a *ngIf="editMode" (click)="toggleEditMode()"><i class="fas fa-check"></i></a>
+</div>
+
+<movies [listId]="listId"></movies>
